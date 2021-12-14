@@ -65,13 +65,26 @@ class Cantus():
     lastMove = Moves.JustBorn
     nextMove = Moves.JustBorn
 
-    Notes = []
+    Notes = [NotesEnum.C3]
 
 def noteChangeGeneric(cantus, intervalChange):
     cantus.lastMove = intervalChange
     lastNote = cantus.Notes[-1]
-    nextNote = lastNote + intervalChange
-    cantus.Notes.append(nextNote)
+    scaleDegree = MajorScale.scale.index(lastNote)
+    nextNote = scaleDegree + intervalChange
+    cantus.Notes.append(MajorScale.scale[nextNote])
+
+def main():
+    cantus = Cantus()    
+    noteChangeGeneric(cantus, 1)
+    noteChangeGeneric(cantus, 1)
+    noteChangeGeneric(cantus, -2)
+    noteChangeGeneric(cantus, 1)
+    noteChangeGeneric(cantus, -1)
+    noteChangeGeneric(cantus, 2)
+    for note in cantus.Notes:
+        print(note)
+    
 
 def stepUp(cantus):
     cantus.lastMove= Moves.SteppedUp
@@ -143,8 +156,6 @@ def leapDownSixth(cantus):
     cantus.Notes.append(nextNote)
     print("Leapt down sixth")
 
-def main():
-    print("Hello World")
 
 if __name__=="__main__":
     main()
